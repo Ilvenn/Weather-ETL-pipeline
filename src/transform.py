@@ -1,7 +1,9 @@
 import pandas as pd
 import logging
-from datetime import datetime,timezone
+from datetime import datetime,timezone,timedelta
 import time
+
+FUSO_LOCAL = timezone(timedelta(hours=2))
 
 def flatten(raw_payloads: list[dict]) -> pd.DataFrame:
     """
@@ -37,7 +39,7 @@ def flatten(raw_payloads: list[dict]) -> pd.DataFrame:
                 "Wind_speed": record.get('wind', {}).get('speed'),
                 # Convert the Unix timestamp (dt) into a UTC ISO 8601 formatted string without milliseconds or tz offset
                 "Timestamp": datetime.fromtimestamp(record.get("dt"), tz=timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"),
-                "Extracted_At": datetime.fromtimestamp(time.time()).strftime("%Y-%m-%dT%H:%M:%S")
+                "Extracted_At": datetime.now(FUSO_LOCAL).strftime("%Y-%m-%dT%H:%M:%S")
             } 
             clean.append(transformed)
         except (KeyError, TypeError, IndexError) as err:
