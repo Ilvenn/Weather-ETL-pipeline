@@ -31,7 +31,8 @@ def load_to_duckdb(frame: pd.DataFrame) -> None:
                 feels_like DOUBLE,
                 humidity BIGINT,
                 windspeed DOUBLE,
-                timestamp TIMESTAMP
+                timestamp TIMESTAMP,
+                extracted_at TIMESTAMP
             )
         """)
 
