@@ -23,19 +23,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Step 2: Installs Python 3.11 on the virtual machine and caches for further runs
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: "pip"
-
-      # Step 3: Builds the Docker image locally on the runner
+      # Step 2: Builds the Docker image locally on the runner
       - name: Build Docker image
         run: |
           docker build -t weather-etl:latest .
 
-      # Step 4: Runs the main Python script inside the Docker container
+      # Step 3: Runs the main Python script inside the Docker container
       - name: Execute Pipeline
         env:
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
