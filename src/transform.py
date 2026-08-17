@@ -1,7 +1,7 @@
 import pandas as pd
 import logging
 from datetime import datetime,timezone
-
+import time
 
 def flatten(raw_payloads: list[dict]) -> pd.DataFrame:
     """
@@ -36,7 +36,8 @@ def flatten(raw_payloads: list[dict]) -> pd.DataFrame:
                 "Humidity": record.get('main', {}).get('humidity'),
                 "Wind_speed": record.get('wind', {}).get('speed'),
                 # Convert the Unix timestamp (dt) into a UTC ISO 8601 formatted string
-                "Timestamp": datetime.fromtimestamp(record.get("dt"), tz=timezone.utc).isoformat()
+                "Timestamp": datetime.fromtimestamp(record.get("dt"), tz=timezone.utc).isoformat(),
+                "Extracted_At": datetime.fromtimestamp(time.time()).isoformat()
             } 
             clean.append(transformed)
         except (KeyError, TypeError, IndexError) as err:
@@ -44,6 +45,7 @@ def flatten(raw_payloads: list[dict]) -> pd.DataFrame:
                 # Log the error, fallback to 'Unknown City' if name key is missing or invalid
                 f"Failed to transform for {record.get('name', 'Unknown City')}: {err}"
             )
+        
 
     # Convert the list of flat dictionaries into a pandas DataFrame
     frame = pd.DataFrame(clean)
