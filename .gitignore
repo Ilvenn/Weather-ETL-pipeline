@@ -1,0 +1,8 @@
+# Ignore generated data and log directories
+data/
+logs/
+
+# Ignore database and spreadsheet files if placed outside data/
+*.duckdb
+*.xlsx
+*.log

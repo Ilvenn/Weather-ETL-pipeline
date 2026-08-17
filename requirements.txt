@@ -1,0 +1,13 @@
+# HTTP requests and API retries
+requests==2.32.3
+urllib3==2.2.2
+
+# Data transformation and export
+pandas==2.2.2
+openpyxl==3.1.5
+
+# Database engine
+duckdb==1.0.0
+
+# Environment variables management (for local testing)
+python-dotenv==1.0.1
