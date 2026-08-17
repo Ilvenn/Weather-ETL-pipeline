@@ -45,7 +45,8 @@ def load_to_duckdb(frame: pd.DataFrame) -> None:
             "Feels_like": "feels_like",
             "Humidity": "humidity",
             "Wind_speed": "windspeed",
-            "Timestamp": "timestamp"
+            "Timestamp": "timestamp",
+            "Extracted_At": "extracted_at"
         })
 
         con.execute("INSERT INTO weather_observations SELECT * FROM db_frame")
