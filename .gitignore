@@ -6,3 +6,5 @@ logs/
 *.duckdb
 *.xlsx
 *.log
+*.env
+__pycache__
