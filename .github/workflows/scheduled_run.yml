@@ -40,4 +40,7 @@ jobs:
       - name: Execute Pipeline
         env:
           OPENWEATHER_API_KEY: ${{ secrets.OPENWEATHER_API_KEY }}
-        run: python main.py
+        run: |
+          docker run --rm \
+            -e OPENWEATHER_API_KEY=$OPENWEATHER_API_KEY \
+            weather-etl:latest

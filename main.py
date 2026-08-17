@@ -47,11 +47,13 @@ def run() -> None:
         load_all(clean)
 
         elapsed_time = round(time.time() - start_time, 2)
-        logging.info(f"=== Pipeline executed succesfully in {elapsed_time}s ===")
+        logging.info(
+            "=== Pipeline executed succesfully in %ss ===", elapsed_time
+        )
 
     except Exception as err:
         logging.critical(
-            f"Pipeline failed due to unhandled error: {err}", exc_info=True
+            "Pipeline failed due to unhandled error: %s", err, exc_info=True
         )
         sys.exit(1)
 

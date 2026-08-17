@@ -6,9 +6,7 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 #load local .env file if exists
-#load_dotenv(dotenv_path=BASE_DIR / ".env")
-
-load_dotenv()
+load_dotenv(dotenv_path=BASE_DIR / ".env.example")
 
 #Credentials for api and endpoint
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")

@@ -46,7 +46,7 @@ def load_to_duckdb(frame: pd.DataFrame) -> None:
         })
 
         con.execute("INSERT INTO weather_observations SELECT * FROM db_frame")
-        logging.info(f"Succesfully loaded {len(frame)} records into DuckDB")
+        logging.info("Succesfully loaded %s records into DuckDB", len(frame))
 
     finally:
         con.close()
