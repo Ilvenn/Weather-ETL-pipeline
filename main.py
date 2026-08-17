@@ -47,7 +47,7 @@ def run() -> None:
         load_all(clean)
 
         elapsed_time = round(time.time() - start_time, 2)
-        logging.info("=== Pipeline executed succesfully in {elapsed_time}s ===")
+        logging.info(f"=== Pipeline executed succesfully in {elapsed_time}s ===")
 
     except Exception as err:
         logging.critical(

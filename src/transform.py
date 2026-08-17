@@ -43,16 +43,15 @@ def flatten(raw_payloads: list[dict]) -> pd.DataFrame:
             logging.error(
                 # Log the error, fallback to 'Unknown City' if name key is missing or invalid
                 f"Failed to transform for {record.get('name', 'Unknown City')}: {err}"
-                f"{err}"
             )
 
     # Convert the list of flat dictionaries into a pandas DataFrame
     frame = pd.DataFrame(clean)
    
     # Remove duplicate records based on unique combinations of City and Timestamp
-    frame.drop_duplicates(subset=['City','Timestamp'])
+    frame = frame.drop_duplicates(subset=['City','Timestamp'])
 
     # Fill any missing values in the DataFrame with a default 'N/A'
-    frame.fillna('N/A')
+    frame = frame.fillna('N/A')
 
     return frame

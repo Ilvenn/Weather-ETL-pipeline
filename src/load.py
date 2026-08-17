@@ -32,8 +32,21 @@ def load_to_duckdb(frame: pd.DataFrame) -> None:
             )
         """)
 
-        con.execute("INSERT INTO weather_observations SELECT * FROM frame")
-        logging.info("Succesfully loaded {len(frame)} records into DuckDB")
+        # Rename columns to match DuckDB schema exactly
+        db_frame = frame.rename(columns={
+            "City": "city",
+            "Country": "country",
+            "Weather": "weather",
+            "Description": "description",
+            "Temperature": "temperature",
+            "Feels_like": "feels_like",
+            "Humidity": "humidity",
+            "Wind_speed": "windspeed",
+            "Timestamp": "timestamp"
+        })
+
+        con.execute("INSERT INTO weather_observations SELECT * FROM db_frame")
+        logging.info(f"Succesfully loaded {len(frame)} records into DuckDB")
 
     finally:
         con.close()
