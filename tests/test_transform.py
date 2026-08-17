@@ -27,7 +27,7 @@ def test_flatten_valid_data():
     assert len(df) == 2
     assert list(df.columns) == [
         "City", "Country", "Weather", "Description",
-        "Temperature", "Feels_like", "Humidity", "Wind_speed", "Timestamp"
+        "Temperature", "Feels_like", "Humidity", "Wind_speed", "Timestamp", "Extracted_At"
     ]
     assert df.loc[0, "City"] == "Maputo"
     assert df.loc[1, "City"] == "Nelspruit"

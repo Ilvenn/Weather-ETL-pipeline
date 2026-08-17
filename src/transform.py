@@ -35,9 +35,9 @@ def flatten(raw_payloads: list[dict]) -> pd.DataFrame:
                 "Feels_like": record.get('main', {}).get('feels_like'),
                 "Humidity": record.get('main', {}).get('humidity'),
                 "Wind_speed": record.get('wind', {}).get('speed'),
-                # Convert the Unix timestamp (dt) into a UTC ISO 8601 formatted string
-                "Timestamp": datetime.fromtimestamp(record.get("dt"), tz=timezone.utc).isoformat(),
-                "Extracted_At": datetime.fromtimestamp(time.time()).isoformat()
+                # Convert the Unix timestamp (dt) into a UTC ISO 8601 formatted string without milliseconds or tz offset
+                "Timestamp": datetime.fromtimestamp(record.get("dt"), tz=timezone.utc).strftime("%Y-%m-%dT%H:%M:%S"),
+                "Extracted_At": datetime.fromtimestamp(time.time()).strftime("%Y-%m-%dT%H:%M:%S")
             } 
             clean.append(transformed)
         except (KeyError, TypeError, IndexError) as err:
