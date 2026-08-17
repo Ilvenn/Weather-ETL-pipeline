@@ -70,26 +70,26 @@ def load_to_excel(frame: pd.DataFrame) -> None:
     else:
         combined = frame
     
-    combined.to_excel(EXCEL_FILE, index=False)
+    with pd.ExcelWriter(EXCEL_FILE, engine='openpyxl') as writer:
+        combined.to_excel(writer, index=False, sheet_name='Sheet1')
+        worksheet = writer.sheets['Sheet1']
 
-    for col in combined.columns:
-        max_len = max(len(str(cell.value or "")) for cell in col)
-        col_letter = get_column_letter(col[0].column)
-        combined.column_dimensions[col_letter].width = max(max_len + 3, 12)
+        for col in worksheet.columns:
+            max_len = max(len(str(cell.value or "")) for cell in col)
+            col_letter = get_column_letter(col[0].column)
+            worksheet.column_dimensions[col_letter].width = max(max_len + 3, 12)
 
-        # 2. Align cell values (Center for timestamps, Left for text, Right for numbers)
-        for row in combined.iter_rows(min_row=1, max_row=combined.max_row):
-            for cell in row:
+            for cell in col:
+                if cell.row == 1:
+                    continue  # Skip header alignment
                 if isinstance(cell.value, (int, float)):
                     cell.alignment = Alignment(horizontal="right")
-                elif "timestamp" in str(combined.cell(1, cell.column).value).lower():
+                elif cell.value and ("timestamp" in str(worksheet.cell(1, cell.column).value).lower() or "extracted_at" in str(worksheet.cell(1, cell.column).value).lower()):
                     cell.alignment = Alignment(horizontal="center")
                 else:
                     cell.alignment = Alignment(horizontal="left")
-
-        combined.save("data/weather_report.xlsx")
     
-    logging.info("Excel report succesfully created")
+    logging.info("Excel report successfully created")
     
 def load_all(frame: pd.DataFrame) -> None:
     load_to_duckdb(frame)
