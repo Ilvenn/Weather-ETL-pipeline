@@ -7,4 +7,5 @@ logs/
 *.xlsx
 *.log
 *.env
+.env*
 __pycache__
