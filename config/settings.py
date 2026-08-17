@@ -10,7 +10,7 @@ load_dotenv(dotenv_path=BASE_DIR / ".env.example")
 
 #Credentials for api and endpoint
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY")
-#OPENWEATHER_API_KEY = "your_api_key_here"
+
 URL = "https://api.openweathermap.org/data/2.5/weather"
 TIMEOUT = 20
 

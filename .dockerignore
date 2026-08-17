@@ -1,7 +1,7 @@
 .git
 .github
 tests/
-.env
+.env*
 README.md
 __pycache__/
 *.pyc
